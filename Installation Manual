@@ -1,0 +1,92 @@
+Installation Manual for A Beautiful Event System
+________________________________________
+System Requirements
+•	Operating System: Windows/Linux/MacOS
+•	Web Server: Apache, Nginx, or XAMPP
+•	Database: MySQL version 5.7+
+•	Programming Languages: PHP 7.4+, HTML5, CSS3, JavaScript
+•	Browser: Latest version of Chrome, Firefox, or Edge
+•	Dependencies:
+o	PHPMyAdmin for database management (optional)
+o	Composer (PHP dependency manager)
+________________________________________
+Installation Steps
+1.	Download Project Files
+o	Obtain the source code for the A Beautiful Event system. Extract the files into your preferred web server directory:
+	For XAMPP: Place files in C:\xampp\htdocs\a_beautiful_event
+	For Nginx/Apache/WAXMP: Use the directory /www/html/a_beautiful_event
+2.	Create MySQL Database
+o	Open PHPMyAdmin or any MySQL client tool.
+o	Create a new database using the following SQL command:
+CREATE DATABASE a_beautiful_event;
+3.	Import Database
+o	Open your MySQL interface and select the a_beautiful_event database.
+o	Import the provided .sql file:
+	Go to Import and upload the a_beautiful_event.sql file.
+	Ensure that all tables and initial data are correctly loaded.
+4.	Configure Database Connection
+o	Navigate to the configuration file (usually  DB.php) and update the connection settings:
+define('DB_SERVER', 'localhost');
+define('DB_USERNAME', 'your_db_user');
+define('DB_PASSWORD', 'your_db_password');
+define('DB_NAME', 'a_beautiful_event');
+o	Replace your_db_user and your_db_password with your MySQL credentials.
+5.	Run the Application
+o	Launch your browser and visit:
+http://localhost/a_beautiful_event/
+o	Log in using the admin credentials:
+	Email: sagarbastakoti5328@gmail.com
+	Password: admin123
+________________________________________
+User Manual for A Beautiful Event System
+________________________________________
+Login and Authentication
+1.	Admin Login
+o	Access the system through http://localhost/a_beautiful_event/admin.
+o	Enter your username and password to log in as an Admin.
+2.	Forgot Password
+o	If you forget your password, click on the "Forgot Password" link and follow the steps to reset it using your email address.
+________________________________________
+Dashboard Overview
+Upon login, you will be taken to the Admin Dashboard where you can manage various features.
+________________________________________
+Manage Bookings
+1.	View Bookings
+o	Navigate the Bookings from the left panel to view all event bookings.
+o	You can see the Event Date, Event Type, Venue, and Status.
+2.	Add a New Booking
+o	Click Add New Booking.
+o	Fill out the booking form, including details like Customer Name, Event Type, Service Selection, and Event Date.
+3.	Update Booking
+o	To update an existing booking, select a booking from the list, click Edit, and modify the necessary details.
+________________________________________
+Manage Services
+1.	Add New Service
+o	Go to Services > Add New Service.
+o	Enter the service name, description, and price, then save.
+2.	Edit/Delete Services
+o	To edit or remove a service, select the respective option from the Service List.
+________________________________________
+Manage Event Types
+1.	Add Event Type
+o	Navigate to Event Types and click Add New Event Type.
+o	Enter the event type name (e.g., Wedding, Concert, etc.).
+2.	Delete Event Type
+o	Select any event type from the list and click Delete to remove it.
+________________________________________
+Company Settings
+1.	Update Company Information
+o	Go to Company Settings and update company details like the name, email, address, and logo.
+________________________________________
+Permissions and Roles
+1.	Manage User Roles
+o	In Permissions, you can manage roles such as Superuser, Admin, and User.
+o	Assign or remove privileges for creating and updating users, bookings, or bids.
+2.	Add New User
+o	Navigate to Admin Management > Add New Admin.
+o	Enter the admin details, including username, password, and role.
+________________________________________
+Logout
+•	To log out, simply click the Logout button at the top-right of the dashboard.
+________________________________________
+      
