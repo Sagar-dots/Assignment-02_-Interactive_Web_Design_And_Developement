@@ -1,160 +1,255 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Beautiful Event - Wedding Planning</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-    </style>
-</head>
-<body class="bg-white">
-    <header class="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div class="flex items-center">
-            <img src="/api/placeholder/40/40" alt="Logo" class="h-10 w-10 mr-2">
-            <span class="text-xl font-semibold text-red-500">A Beautiful Event</span>
-        </div>
-        <nav class="hidden md:flex space-x-6">
-            <a href="#" class="text-gray-600 hover:text-gray-800">Home</a>
-            <a href="#" class="text-gray-600 hover:text-gray-800">Venue</a>
-            <a href="#" class="text-gray-600 hover:text-gray-800">Events</a>
-            <a href="#" class="text-gray-600 hover:text-gray-800">About</a>
-            <a href="#" class="text-gray-600 hover:text-gray-800">Gallery</a>
-            <a href="#" class="text-gray-600 hover:text-gray-800 underline">Contact Us</a>
-        </nav>
-        <div class="flex items-center space-x-2">
-            <button class="text-gray-700 px-4 py-2 text-sm">LOGIN</button>
-            <button class="bg-gray-200 text-gray-700 px-4 py-2 text-sm">SIGNUP</button>
-            <button class="text-gray-700"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></button>
-        </div>
-    </header>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <main>
-        <section class="bg-gray-100 py-20 text-center">
-            <h1 class="text-4xl font-bold mb-4">We are "A Beautiful Event"</h1>
-            <p class="text-xl">
-                We bring
-                <br>
-                <span class="font-bold text-3xl">dream Events</span>
-                <br>
-                to life!
-            </p>
-        </section>
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-        <section class="container mx-auto px-4 py-16 flex flex-wrap">
-            <div class="w-full md:w-1/2 pr-0 md:pr-8">
-                <h2 class="text-2xl font-semibold mb-6">Say Hello!</h2>
-                <form>
-                    <div class="mb-4">
-                        <label for="fullName" class="block text-sm font-medium text-gray-700">Full Name</label>
-                        <input type="text" id="fullName" name="fullName" placeholder="Enter Name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                    </div>
-                    <div class="mb-4">
-                        <label for="contactNumber" class="block text-sm font-medium text-gray-700">Contact Number</label>
-                        <input type="tel" id="contactNumber" name="contactNumber" placeholder="Contact Number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                    </div>
-                    <div class="mb-4">
-                        <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                        <input type="email" id="email" name="email" placeholder="Email Address" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                    </div>
-                    <div class="mb-4">
-                        <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
-                        <textarea id="message" name="message" rows="5" placeholder="Enter Your Message" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-gray-300 text-gray-700 py-2 px-4 rounded-md">Submit</button>
-                </form>
-            </div>
-            <div class="w-full md:w-1/2 mt-8 md:mt-0">
-                <h3 class="text-xl font-semibold mb-4">Vendors</h3>
-                <p class="mb-6">If you are a registered vendor or a business looking to promote your brand on our portal, please send in your queries at vendors@comany.com</p>
-                
-                <h3 class="text-xl font-semibold mb-4">Marketing Collaborations</h3>
-                <p class="mb-6">For brand collaborations - sponsored content, social media activations etc., please write into partnerships@comany.com</p>
-                
-                <h3 class="text-xl font-semibold mb-4">Wedding Submissions</h3>
-                <p class="mb-6">&lt;Company Name&gt; features wedding across cultures, styles and budgets. To submit your wedding, kindly email us 15-20 photos at submissions@comany.com</p>
-                
-                <h3 class="text-xl font-semibold mb-4">Careers</h3>
-                <p class="mb-6">We are a team of passionate young minds looking to reinvent the wedding space. Please check our careers page for current openings and email us at hr@comany.com</p>
-                
-                <h3 class="text-xl font-semibold mb-4">Customers</h3>
-                <p>We love to hear from our precious users. For any feedback or queries simply write in to info@comany.com</p>
-            </div>
-        </section>
+        <title>Contact Page</title>
 
-        <section class="bg-gray-100 py-16">
-            <div class="container mx-auto px-4 flex items-center">
-                <div class="w-1/3">
-                    <img src="/api/placeholder/300/300" alt="Placeholder" class="w-full h-auto">
-                </div>
-                <div class="w-2/3 pl-8">
-                    <h2 class="text-3xl font-bold mb-4">Lorem ipsum dolor sit amet</h2>
-                    <p class="mb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                    <button class="bg-gray-300 text-gray-700 py-2 px-6 rounded-md">CTA</button>
-                </div>
-            </div>
-        </section>
-    </main>
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <footer class="bg-white py-16">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-wrap -mx-4 mb-8">
-                <div class="w-full md:w-1/4 px-4 mb-8 md:mb-0">
-                    <img src="/api/placeholder/40/40" alt="Logo" class="h-10 w-10 mb-3">
-                    <h3 class="text-xl font-semibold mb-2 text-red-500">A Beautiful Event</h3>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-gray-600">FB</a>
-                        <a href="#" class="text-gray-400 hover:text-gray-600">TW</a>
-                        <a href="#" class="text-gray-400 hover:text-gray-600">IG</a>
-                        <a href="#" class="text-gray-400 hover:text-gray-600">IN</a>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap" rel="stylesheet">
+                        
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+        <link href="css/styles.css" rel="stylesheet">
+<!--
+
+TemplateMo 590 topic listing
+
+https://templatemo.com/tm-590-topic-listing
+
+-->
+    </head>
+    
+    <body class="topics-listing-page" id="top">
+
+        <main>
+
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <a class="navbar-brand" href="index.html">
+                        <i class="bi-back"></i>
+                        <span>Topic</span>
+                    </a>
+
+                    <div class="d-lg-none ms-auto me-4">
+                        <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                    </div>
+    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+    
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-lg-5 me-lg-auto">
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="index.html#section_1">Home</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="index.html#section_2">Browse Topics</a>
+                            </li>
+    
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="index.html#section_3">How it works</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="index.html#section_4">FAQs</a>
+                            </li>
+    
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="index.html#section_5">Contact</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#section_5" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
+
+                                <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="topics-listing.html">Topics Listing</a></li>
+
+                                    <li><a class="dropdown-item active" href="contact.html">Contact Form</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="d-none d-lg-block">
+                            <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                        </div>
                     </div>
                 </div>
-                <div class="w-full md:w-1/4 px-4 mb-8 md:mb-0">
-                    <h4 class="text-lg font-semibold mb-4">Venues</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-600 hover:text-gray-800">Abu Dhabi</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-gray-800">Al Ain</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-gray-800">Ajman</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-gray-800">Dubai</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-gray-800">Fujairah</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-gray-800">Ras Al Khaimah</a></li>
-                    </ul>
+            </nav>
+
+
+            <header class="site-header d-flex flex-column justify-content-center align-items-center">
+                <div class="container">
+                    <div class="row align-items-center">
+
+                        <div class="col-lg-5 col-12">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html">Homepage</a></li>
+
+                                    <li class="breadcrumb-item active" aria-current="page">Contact Form</li>
+                                </ol>
+                            </nav>
+
+                            <h2 class="text-white">Contact Form</h2>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="w-full md:w-1/4 px-4 mb-8 md:mb-0">
-                    <h4 class="text-lg font-semibold mb-4">Events</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-600 hover:text-gray-800">Photographs</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-gray-800">Video Graphs</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-gray-800">Flowers</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-gray-800">Lighting</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-gray-800">Designs</a></li>
-                    </ul>
+            </header>
+
+
+            <section class="section-padding section-bg">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-12 col-12">
+                            <h3 class="mb-4 pb-2">We'd love to hear from you</h3>
+                        </div>
+
+                        <div class="col-lg-6 col-12">
+                            <form action="#" method="post" class="custom-form contact-form" role="form">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-floating">
+                                            <input type="text" name="name" id="name" class="form-control" placeholder="Name" required="">
+                                            
+                                            <label for="floatingInput">Name</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-12"> 
+                                        <div class="form-floating">
+                                            <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required="">
+                                            
+                                            <label for="floatingInput">Email address</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-12">
+                                        <div class="form-floating">
+                                            <input type="text" name="subject" id="name" class="form-control" placeholder="Name" required="">
+                                            
+                                            <label for="floatingInput">Subject</label>
+                                        </div>
+
+                                        <div class="form-floating">
+                                            <textarea class="form-control" id="message" name="message" placeholder="Tell me about the project"></textarea>
+                                            
+                                            <label for="floatingTextarea">Tell me about the project</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-12 ms-auto">
+                                        <button type="submit" class="form-control">Submit</button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-lg-5 col-12 mx-auto mt-5 mt-lg-0">
+                            <iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2595.065641062665!2d-122.4230416990949!3d37.80335401520422!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858127459fabad%3A0x808ba520e5e9edb7!2sFrancisco%20Park!5e1!3m2!1sen!2sth!4v1684340239744!5m2!1sen!2sth" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                            <h5 class="mt-4 mb-2">Topic Listing Center</h5>
+
+                            <p>Bay St &amp;, Larkin St, San Francisco, CA 94109, United States</p>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="w-full md:w-1/4 px-4">
-                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-600 hover:text-gray-800">About Us</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-gray-800">Join Us</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-gray-800">Contact Us</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-gray-800">Privacy Policy</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-gray-800">Terms & Conditions</a></li>
-                    </ul>
+            </section>
+        </main>
+
+        <footer class="site-footer section-padding">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 col-12 mb-4 pb-2">
+                        <a class="navbar-brand mb-2" href="index.html">
+                            <i class="bi-back"></i>
+                            <span>Topic</span>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-6">
+                        <h6 class="site-footer-title mb-3">Resources</h6>
+
+                        <ul class="site-footer-links">
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">Home</a>
+                            </li>
+
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">How it works</a>
+                            </li>
+
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">FAQs</a>
+                            </li>
+
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-6 mb-4 mb-lg-0">
+                        <h6 class="site-footer-title mb-3">Information</h6>
+
+                        <p class="text-white d-flex mb-1">
+                            <a href="tel: 305-240-9671" class="site-footer-link">
+                                305-240-9671
+                            </a>
+                        </p>
+
+                        <p class="text-white d-flex">
+                            <a href="mailto:info@company.com" class="site-footer-link">
+                                info@company.com
+                            </a>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-12 mt-4 mt-lg-0 ms-auto">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            English</button>
+
+                            <ul class="dropdown-menu">
+                                <li><button class="dropdown-item" type="button">Thai</button></li>
+
+                                <li><button class="dropdown-item" type="button">Myanmar</button></li>
+
+                                <li><button class="dropdown-item" type="button">Arabic</button></li>
+                            </ul>
+                        </div>
+
+                        <p class="copyright-text mt-lg-5 mt-4">Copyright © 2048 Topic Listing Center. All rights reserved.
+                        <br><br>Design: <a rel="nofollow" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
+                        
+                    </div>
+
                 </div>
             </div>
-            <div class="border-t border-gray-200 pt-8">
-                <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
-                <p class="mb-4">Subscribe To Get Latest Media Updates</p>
-                <form class="flex">
-                    <input type="email" placeholder="Enter your email" class="flex-grow px-4 py-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-red-500 border border-gray-300">
-                    <button type="submit" class="bg-red-500 text-white px-6 py-2 rounded-r-md">Connect With Us</button>
-                </form>
-            </div>
-        </div>
-    </footer>
-</body>
+        </footer>
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/custom.js"></script>
+
+    </body>
 </html>
