@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-include('DB.php');
+include('dbconnection.php');
 function check_login()
 {
 	if(strlen($_SESSION['odmsaid'])==0)

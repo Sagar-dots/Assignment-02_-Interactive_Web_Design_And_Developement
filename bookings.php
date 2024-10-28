@@ -30,7 +30,9 @@ if(isset($_POST['submit']))
   $query->bindParam(':vaddress',$vaddress,PDO::PARAM_STR);
   $query->bindParam(':eventtype',$eventtype,PDO::PARAM_STR);
   $query->bindParam(':addinfo',$addinfo,PDO::PARAM_STR);
-
+  $bookingDate = new DateTime($edate); // Use the event date from the form
+  $month = $bookingDate->format('F'); // Full month name (e.g., 'October')
+  $day = $bookingDate->format('j'); // Day of the month without leading zeros (e.g., '26')
   $query->execute();
   $LastInsertId=$dbh->lastInsertId();
   if ($LastInsertId>0) {
@@ -73,45 +75,13 @@ if(isset($_POST['submit']))
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-
         <style>
-    .new-bookings-container {
-        display: flex; /* Use Flexbox */
-        flex-direction: row; /* Stack the blocks vertically */
-        gap: 60px; /* Space between blocks */
-    }
-
-    .new-booking-block {
-        display: flex; /* Flex container for individual booking */
-        justify-content: space-between; /* Space out the items */
-        align-items: center;
-        padding: left 0px; /* Center items vertically */
-        padding: 10px; /* Padding inside each block */
-        border: 1px solid #ddd; /* Border for visual separation */
-        border-radius: 30px; /* Rounded corners */
-        background-color: white; /* Background color */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-        background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
-        background-size: cover;
-        height:400px;
-        width: 800px;
-    }
-
-    .edit_data2 {
-        background-color: #6f42c1; /* Button color */
-        color: white; /* Text color */
-        border: none; /* No border */
-        padding: 6px 15px ;
-        padding:auto; /* Padding for button */
-        border-radius: 50px; /* Rounded button corners */
-        cursor: pointer; /* Pointer cursor on hover */
-
-    }
-
-    .edit_data2:hover {
-        background-color: #5a32a5; /* Darker shade on hover */
-    }
+             .wrappers {
+            display: flexbox;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;}
         </style>
 
 <script src="https://kit.fontawesome.com/5e4b38806c.js" crossorigin="anonymous"></script>
@@ -122,13 +92,12 @@ if(isset($_POST['submit']))
 
         <main>
 
-            <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg">
                 <div class="container">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="homepage.php">
                         <i class="bi-back"></i>
                         <span>A Beautiful Event</span>
                     </a>
-
                     <div class="d-lg-none ms-auto me-4">
                         <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
                     </div>
@@ -140,42 +109,88 @@ if(isset($_POST['submit']))
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-lg-5 me-lg-auto">
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="index.php#section_1">Home</a>
+                                <a class="nav-link click-scroll" href="homepage.php">Home</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="index.php#section_2">Venues</a>
+                                <a class="nav-link click-scroll" href="#section_2">Venues</a>
                             </li>
     
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="index.php#section_3">Events</a>
+                                <a class="nav-link click-scroll" href="#section_3">Events</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="index.php#section_4">FAQs</a>
+                                <a class="nav-link click-scroll" href="#section_4">FAQs</a>
                             </li>
     
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="index.php#section_5">Contact</a>
+                                <a class="nav-link click-scroll" href="#section_5">Contact</a>
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#section_5" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
 
                                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                                    <li><a class="dropdown-item active" href="bookings.php">Bookings</a></li>
+                                    <li><a class="dropdown-item" href="./all_bookings.php">Bookings</a></li>
 
-                                    <li><a class="dropdown-item" href="contact.html">Contact Form</a></li>
+                                    <li><a class="dropdown-item" href="contact.php">Contact Form</a></li>
                                 </ul>
                             </li>
                         </ul>
+                        
 
                         <div class="d-none d-lg-block">
-                            <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+  <div class="col-md-12 d-flex justify-content-between align-items-center ">
+    <div class="nav-item nav-profile me-3">
+      <?php
+      session_start();
+      error_reporting(0);
+      include('includes/dbconnection.php');
+      $aid = $_SESSION['odmsaid'];
+      $sql = "SELECT * from tbladmin where id=:aid";
+      $query = $dbh->prepare($sql);
+      $query->bindParam(':aid', $aid, PDO::PARAM_STR);
+      $query->execute();
+      $results = $query->fetchAll(PDO::FETCH_OBJ);
+      if ($query->rowCount() > 0) {
+        foreach ($results as $row) {
+          ?>
+          <div class="nav-profile-text">
+            <p class="mb-1 text-white fs-1.5" ><?php echo htmlspecialchars($row->full_name); ?></p>
+          </div>
+          <?php
+        }
+      }
+      ?>
+    </div>
+    <div class="dropdown">
+  <!-- Button triggering the dropdown -->
+  <a href="#" class="navbar-icon bi-person smoothscroll" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 1.5em; color: #000;">
+  </a>
+
+  <!-- Dropdown menu -->
+  <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+    <a class="dropdown-item" href="profile.php">
+      <i class="mdi mdi-account mr-2 text-success"></i> Profile 
+    </a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="change_password.php">
+      <i class="mdi mdi-key mr-2 text-success"></i> Change Password 
+    </a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="index.php">
+      <i class="mdi mdi-logout mr-2 text-danger"></i> Signout 
+    </a>
+  </div>
+</div>
+
+   
+  </div>
+</div>
+                    
+        
+    </nav>
 
 
             <header class="site-header d-flex flex-column justify-content-center align-items-center">
@@ -199,145 +214,128 @@ if(isset($_POST['submit']))
             </header>
 
 <section class="section-padding">
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12 col-12 text-center">
-            <h3 class="mb-4">New Bookings</h3>
-        </div>
-
-        <div class="col-lg-8 col-12 mt-3 mx-auto">
-            <div class="new-bookings-container"> <!-- New class applied here -->
-                <?php
-                $sql = "SELECT * from tblbooking where Status is null";
-                $query = $dbh->prepare($sql);
-                $query->execute();
-                $results = $query->fetchAll(PDO::FETCH_OBJ);
-
-                if ($query->rowCount() > 0) {
-                    foreach ($results as $row) { ?>
-                        <div class="new-booking-block"> <!-- Unique class for individual bookings -->
-                            <div class="flex-grow-1">
-                                <h5 class="mb-2">Booking ID: <?php echo htmlentities($row->BookingID); ?></h5>
-                                <p class="mb-1"><strong>Customer Name:</strong> <?php echo htmlentities($row->Name); ?></p>
-                                <p class="mb-1"><strong>Mobile Number:</strong> 0<?php echo htmlentities($row->MobileNumber); ?></p>
-                                <p class="mb-1"><strong>Email:</strong> <?php echo htmlentities($row->Email); ?></p>
-                                <p class="mb-1"><strong>Booking Date:</strong> 
-                                    <span class="badge badge-info"><?php echo htmlentities($row->BookingDate); ?></span>
-                                </p>
-                                <p class="mb-1"><strong>Status:</strong> 
-                                    <?php echo ($row->Status == "") ? "Not Updated Yet" : htmlentities($row->Status); ?>
-                                </p>
-                            </div>
-                            <div class="text-center">
-                                <a href="#" class="edit_data2" id="<?php echo ($row->ID); ?>">
-                                <i class="fa-solid fa-user-pen" style="align-items:center;" aria-hidden="true" title="Take action"></i>
-                                </a>
-                            </div>
-                        </div>
-                                     <?php 
-                                              } 
-                                         } else { ?>
-                                              <div class="alert alert-warning text-center" role="alert">
-                                                        No new bookings found.
-                                     </div>
-                              <?php } ?>
-                        </div>
-                   </div>
-                 </div>
-            </div>
-
-<!-- 
-
-
-
-                            <div class="custom-block custom-block-bookings bg-white shadow-lg mb-5">
-                                <div class="d-flex">
-                                    <img src="images/topics/undraw_online_ad_re_ol62.png" class="custom-block-image img-fluid" alt="">
-
-                                    <div class="custom-block-bookings-info d-flex">
-                                        <div>
-                                            <h5 class="mb-2">The National Mueseum </h5>
-
-                                            <p class="mb-0">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut sunt illo fuga natus molestias! Quod ea perferendis nostrum cum, totam quas reprehenderit molestias, exercitationem temporibus odit sint in incidunt dolorem.</p>
-
-                                            <a href="topics-detail.html" class="btn custom-btn mt-3 mt-lg-4">Learn More</a>
-                                        </div>
-
-                                        <span class="badge bg-large_venues rounded-pill ms-auto">30</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="custom-block custom-block-bookings bg-white shadow-lg mb-5">
-                                <div class="d-flex">
-                                    <img src="images/topics/undraw_Podcast_audience_re_4i5q.png" class="custom-block-image img-fluid" alt="">
-
-                                    <div class="custom-block-bookings-info d-flex">
-                                        <div>
-                                            <h5 class="mb-2">Edith Room</h5>
-
-                                            <p class="mb-0">Address: Verity Lane Market</p>
-
-                                            <a href="topics-detail.html" class="btn custom-btn mt-3 mt-lg-4">Learn More</a>
-                                        </div>
-
-                                        <span class="badge bg-music rounded-pill ms-auto">60</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                        <!-- <div class="col-lg-12 col-12">
-                 
-                            <nav aria-label="Page navigation example" style="padding-left: 500px;">
-                                <ul class="pagination justify-content-center mb-0">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">Prev</span>
-                                        </a>
-                                    </li>
-
-                                    <li class="page-item active" aria-current="page">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">2</a>
-                                    </li>
-                                    
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">3</a>
-                                    </li>
-
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">4</a>
-                                    </li>
-
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">5</a>
-                                    </li>
-                                    
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">Next</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div> -->
-
-                    </div>
+<div class="container-fluid">
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper">
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card w-100">
+                <div class="modal-header">
+                  <h5 class="modal-title" style="float: left;">Your Bookings</h5>
                 </div>
-            </section>
-            <section class="section-padding">
-             <!-- Button to trigger modal -->
-<div class="col-lg-12 col-12">
-  <div>
-    <button type="button" class="btn btn-sm btn-info custom-btn" data-toggle="modal" data-target="#AddData4" style="float:right; margin-right:200px;">
+                
+              
+              
+              <!-- Trigger Button -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editData4">
+  View Booking Details
+</button>
+
+<!-- Modal for Viewing Booking Details -->
+<div id="editData4" class="modal fade">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">View Booking Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="info_update4">
+        <?php include("view_newbookings.php"); ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+            
+          <div class="table-responsive p-3">
+            <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+              <thead>
+                <tr>
+                 <th class="text-center"></th>
+                 <th>Booking ID</th>
+                 <th class="d-none d-sm-table-cell">Cutomer Name</th>
+                 <th class="d-none d-sm-table-cell">Mobile Number</th>
+                 <th class="d-none d-sm-table-cell">Email</th>
+                 <th class="d-none d-sm-table-cell">Booking Date</th>
+                 <th class="d-none d-sm-table-cell">Status</th>
+                 
+               </tr>
+             </thead>
+
+<tbody>
+               <?php
+               $sql="SELECT * from tblbooking";
+               $query = $dbh -> prepare($sql);
+               $query->execute();
+               $results=$query->fetchAll(PDO::FETCH_OBJ);
+
+               $cnt=1;
+               if($query->rowCount() > 0)
+               {
+                foreach($results as $row)
+                  {               ?>
+                    <tr>
+                      <td class="text-center"><?php echo htmlentities($cnt);?></td>
+                      <td class="font-w600"><?php  echo htmlentities($row->BookingID);?></td>
+                      <td class="font-w600"><?php  echo htmlentities($row->Name);?></td>
+                      <td class="font-w600">0<?php  echo htmlentities($row->MobileNumber);?></td>
+                      <td class="font-w600"><?php  echo htmlentities($row->Email);?></td>
+                      <td class="font-w600">
+                        <span class="badge badge-info"><?php  echo htmlentities($row->BookingDate);?></span>
+                      </td>
+                      <?php if($row->Status=="")
+                      { 
+                        ?>
+                        <td class="font-w600"><?php echo "Not Updated Yet"; ?></td>
+                        <?php 
+                      } else { ?>
+                        <td class="d-none d-sm-table-cell">
+                          <span class="badge badge-info"><?php  echo htmlentities($row->Status);?></span>
+                        </td>
+                        
+                        <?php 
+                      } ?> 
+                      
+                    </tr>
+                    <?php
+                    $cnt=$cnt+1;
+                  }
+                } ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+
+  
+</div>
+
+</div>
+
+</div>
+
+
+
+
+
+  <div class="col-lg-12 col-12 text-center" style="margin-top: 50px; margin-right: 200px;">
+    <button type="button" class="custom-btn" data-toggle="modal" data-target="#AddData4">
       <i class="fas fa-plus"></i> Add Bookings
     </button>
   </div>
-</div>
+
+
 <!-- Modal Structure -->
 <div id="AddData4" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
@@ -490,7 +488,7 @@ if(isset($_POST['submit']))
 
             <!-- Submit Button -->
             <div class="col-md-12 text-right">
-              <button type="submit" name="submit" class="btn btn-success">Book Event</button>
+              <button type="submit" name="submit" class="custom-btn">Book Event</button>
             </div>
           </div>
         </form>
@@ -502,9 +500,9 @@ if(isset($_POST['submit']))
                                    
 
 
-            /section>
+                  </section>
 
-            <section class="section-padding section-bg">
+            <!-- <section class="section-padding section-bg">
                 <div class="container">
                     <div class="row">
 
@@ -514,7 +512,7 @@ if(isset($_POST['submit']))
 
                         <div class="col-lg-6 col-md-6 col-12 mt-3 mb-4 mb-lg-0" style="height:450px">
                             <div class="custom-block bg-white shadow-lg">
-                                <a href="#" onclick:>
+                                <a href="approved_bookings.php" onclick:>
                                     <div class="d-flex">
                                         <div>
                                             <h5 class="mb-2">Approved Bookings</h5>
@@ -528,7 +526,8 @@ if(isset($_POST['submit']))
                             </div>
                         </div>
 
-                        <div class="col-lg-6 col-md-6 col-12 mt-lg-3">
+                        <div class="col-lg-6 col-md-6 col-12 mt-lg-3" >
+                        <a href="canceled_bookings.php" onclick:>
                             <div class="custom-block custom-block-overlay">
                                 <div class="d-flex flex-column h-100">
                                     <img src="https://letsgofido.com.au/wp-content/uploads/2018/11/cancellation-300x197.png" class="custom-block-image img-fluid" alt="">
@@ -567,22 +566,24 @@ if(isset($_POST['submit']))
 
                                     <div class="section-overlay"></div>
                                 </div>
+                                
+                  </a>
                             </div>
                         </div>
 
                     </div>
                 </div>
-            </section>
+            </section> -->
         </main>
 
-        <footer class="site-footer section-padding">
+        <!-- <footer class="site-footer section-padding">
             <div class="container">
                 <div class="row">
 
                     <div class="col-lg-3 col-12 mb-4 pb-2">
-                        <a class="navbar-brand mb-2" href="index.php">
+                        <a class="navbar-brand mb-2" href="homepage.php">
                             <i class="bi-back"></i>
-                            <span><img src="logo.svg" alt=""></span>
+                            <span><img src="/Sea/assets/img/companyimages/logo.jpg" width= '120 px' alt=""></span>
                         </a>
                     </div>
 
@@ -625,18 +626,7 @@ if(isset($_POST['submit']))
                     </div>
 
                     <div class="col-lg-3 col-md-4 col-12 mt-4 mt-lg-0 ms-auto">
-                        <!-- <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            English</button>
-
-                            <ul class="dropdown-menu">
-                                <li><button class="dropdown-item" type="button">Thai</button></li>
-
-                                <li><button class="dropdown-item" type="button">Myanmar</button></li>
-
-                                <li><button class="dropdown-item" type="button">Arabic</button></li>
-                            </ul>
-                        </div> -->
+        
 
                         <p class="copyright-text mt-lg-5 mt-4">Copyright © 2048 A Beautiful Events. All rights reserved.
                         <br><br>Event Management: <a rel="nofollow" href="about.php" target="_blank">Home</a></p>
@@ -645,7 +635,7 @@ if(isset($_POST['submit']))
 
                 </div>
             </div>
-        </footer>
+        </footer> -->
 
         <!-- JAVASCRIPT FILES -->
         <!-- jQuery -->
@@ -653,11 +643,33 @@ if(isset($_POST['submit']))
 
         <!-- Bootstrap JS -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+        
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.bundle.min.js"></script>
         <script src="js/jquery.sticky.js"></script>
         <script src="js/script.js"></script>
+        <script>
+          $(document).ready(function() {
+  $('.view-details-btn').click(function() {
+    var bookingID = $(this).data('id'); // Get booking ID from data attribute
+
+    // AJAX request
+    $.ajax({
+      url: 'view_newbookings.php',
+      type: 'POST',
+      data: { edit_id4: bookingID },
+      success: function(response) {
+        // Load response into modal body
+        $('#info_update4').html(response);
+      }
+    });
+  });
+});
+
+        </script>
 
     </body>
 </html>

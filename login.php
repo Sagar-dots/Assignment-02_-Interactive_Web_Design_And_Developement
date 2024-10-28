@@ -1,50 +1,53 @@
 <?php
-session_start(); // Start the session
+session_start();
+error_reporting(0);
+include('dbconnection.php');
 
-// Initialize error message
-$error = ''; 
+if (isset($_POST['login'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-if (isset($_POST['submit'])) {
-    // Check if fields are empty
-    if (empty($_POST['username']) || empty($_POST['password'])) {
-        $error = "Username or Password is Empty";
-    } else {
-        // Define $username and $password
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+    // Prepare SQL to check if the username exists
+    $sql = "SELECT * FROM tbladmin WHERE username = :username";
+    $query = $dbh->prepare($sql);
+    $query->bindParam(':username', $username, PDO::PARAM_STR);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_OBJ);
 
-        // Establishing Connection with Server
-        $connection = mysqli_connect("localhost", "root", "", "a_beautiful_event");
+    // Check if a user was found and if the password is correct
+    if ($result && password_verify($password, $result->password_hash)) {
+        $_SESSION['odmsaid'] = $result->id;
+        $_SESSION['login'] = $result->username;
+        $_SESSION['permission'] = $result->full_name; // Store full name in session
+        $status = $result->status;
+        $role = $result->role; // Get the role from the database
 
-        // Check connection
-        if (!$connection) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-
-        // To protect against MySQL injection
-        $username = mysqli_real_escape_string($connection, stripslashes($username));
-        $password = mysqli_real_escape_string($connection, stripslashes($password));
-
-        // SQL query to fetch information of registered users
-        $query = mysqli_query($connection, "SELECT * FROM customer WHERE username='$username'");
-        
-        // Check if username exists
-        if (mysqli_num_rows($query) == 1) {
-            $row = mysqli_fetch_assoc($query);
-            // Verify password
-            if (password_verify($password, $row['password'])) {
-                $_SESSION['login_customer'] = $username; // Initializing Session
-                // redirection here; user will move to homepage
-                header('location: index.php');
-               
+        // Check if the account is active (status = 1)
+        if ($status == "1") {
+            // Redirect based on role
+            if ($role === 'Admin') {
+                echo "<script type='text/javascript'> document.location ='dashboard.php'; </script>";
+            } elseif ($role === 'Customer') {
+                echo "<script type='text/javascript'> document.location ='homepage.php'; </script>";
             } else {
-                $error = "Username or Password is invalid";
+                // If role is neither Admin nor Customer
+                echo "<script>
+                    alert('Your role does not have access.');
+                    document.location ='index.php';
+                    </script>";
             }
         } else {
-            $error = "Username or Password is invalid";
+            echo "<script>
+                alert('Your account is disabled. Please approach the Admin.');
+                document.location ='index.php';
+                </script>";
         }
-
-        mysqli_close($connection); // Closing Connection
+    } else {
+        // If the login details are incorrect
+        echo "<script>
+            alert('Invalid credentials or only admins and customers can log in.');
+            document.location ='index.php';
+        </script>";
     }
 }
 ?>

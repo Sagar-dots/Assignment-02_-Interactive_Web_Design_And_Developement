@@ -78,7 +78,7 @@ loginBtn.addEventListener("click", () => {
   const maxYScale = 2.5;
   const body = document.body;
   
-  let mySplitText = new SplitText('.txt', {type:"chars", charsClass:"char", position: "relative" }); 
+ // let mySplitText = new SplitText('.txt', {type:"chars", charsClass:"char", position: "relative" }); 
   let chars = selectAll('.char');
   let txt = select('.txt');
   
@@ -104,25 +104,29 @@ loginBtn.addEventListener("click", () => {
   }
   
   function animInTxt() {
-      let elem = document.querySelector('.char');
-      let rect = elem.getBoundingClientRect();
-      gsap.from(chars, {
-          y: ()=> {
-              return -1*(rect.y + charH + 500); // add an extra 100px buffer to make sure off screen
-          },
-          fontWeight: weightTarget,
-          fontStretch: stretchTarget,
-          scaleY: 2,
-          ease: "elastic(0.2, 0.1)",
-          duration: 1.5,
-          delay: 0.5,
-          stagger: {
-              each: 0.05,
-              from: 'random'
-          },
-          onComplete: initEvents
-      })
-  }
+    let elem = document.querySelector('.char');
+    
+    if (elem) { // Check if elem is not null
+        let rect = elem.getBoundingClientRect();
+        gsap.from(chars, {
+            y: () => -1 * (rect.y + charH + 500), // add an extra 100px buffer to make sure off screen
+            fontWeight: weightTarget,
+            fontStretch: stretchTarget,
+            scaleY: 2,
+            ease: "elastic(0.2, 0.1)",
+            duration: 1.5,
+            delay: 0.5,
+            stagger: {
+                each: 0.05,
+                from: 'random'
+            },
+            onComplete: initEvents
+        });
+    } else {
+        console.warn("Element with class 'char' not found.");
+    }
+}
+
   
   function initEvents() {
       
@@ -220,7 +224,11 @@ loginBtn.addEventListener("click", () => {
   }
   
   function resize() {
-      charH = txt.offsetHeight;
+    if (txt) { // Only access offsetHeight if txt is not null
+        charH = txt.offsetHeight;
+    } else {
+        console.warn("Element with class 'txt' not found.");
+    }
   }
   
   window.onload = () => {

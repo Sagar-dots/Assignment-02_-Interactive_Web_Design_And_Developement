@@ -2,7 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-
+@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
 
 .wrappers {
     position: relative;
@@ -1077,6 +1077,10 @@ blockquote {
   background-color: var(--secondary-color);
   border-color: var(--secondary-color);
 }
+
+
+
+
 
 
 /*---------------------------------------

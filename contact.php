@@ -21,13 +21,7 @@
         <link href="css/bootstrap-icons.css" rel="stylesheet">
 
         <link href="css/styles.css" rel="stylesheet">
-<!--
 
-TemplateMo 590 topic listing
-
-https://templatemo.com/tm-590-topic-listing
-
--->
     </head>
     
     <body class="topics-listing-page" id="top">
@@ -36,9 +30,9 @@ https://templatemo.com/tm-590-topic-listing
 
             <nav class="navbar navbar-expand-lg">
                 <div class="container">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="index.php">
                         <i class="bi-back"></i>
-                        <span>Topic</span>
+                        <span><img src="logo.svg" alt=""></span>
                     </a>
 
                     <div class="d-lg-none ms-auto me-4">
@@ -52,32 +46,32 @@ https://templatemo.com/tm-590-topic-listing
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-lg-5 me-lg-auto">
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="index.html#section_1">Home</a>
+                                <a class="nav-link click-scroll" href="index.php#section_1">Home</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="index.html#section_2">Browse Topics</a>
+                                <a class="nav-link click-scroll" href="index.php#section_2">Venues</a>
                             </li>
     
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="index.html#section_3">How it works</a>
+                                <a class="nav-link click-scroll" href="index.php#section_3">Events</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="index.html#section_4">FAQs</a>
+                                <a class="nav-link click-scroll" href="index.php#section_4">FAQs</a>
                             </li>
     
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="index.html#section_5">Contact</a>
+                                <a class="nav-link click-scroll" href="index.php#section_5">Contact</a>
                             </li>
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#section_5" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
 
                                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="topics-listing.html">Topics Listing</a></li>
+                                    <li><a class="dropdown-item" href="bookings.php">Bookings</a></li>
 
-                                    <li><a class="dropdown-item active" href="contact.html">Contact Form</a></li>
+                                    <li><a class="dropdown-item active" href="contact.php">Contact Form</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -97,7 +91,7 @@ https://templatemo.com/tm-590-topic-listing
                         <div class="col-lg-5 col-12">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Homepage</a></li>
+                                    <li class="breadcrumb-item"><a href="index.php">Homepage</a></li>
 
                                     <li class="breadcrumb-item active" aria-current="page">Contact Form</li>
                                 </ol>
@@ -161,8 +155,8 @@ https://templatemo.com/tm-590-topic-listing
                         </div>
 
                         <div class="col-lg-5 col-12 mx-auto mt-5 mt-lg-0">
-                            <iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2595.065641062665!2d-122.4230416990949!3d37.80335401520422!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858127459fabad%3A0x808ba520e5e9edb7!2sFrancisco%20Park!5e1!3m2!1sen!2sth!4v1684340239744!5m2!1sen!2sth" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
+                        <iframe class="google-map" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Barton%20St,%20North%20Parramatta%20NSW%202151,+(A%20beautiful%20Event%20)&amp;t=h&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/" width="100%" height="850 px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">gps devices</a></iframe>
+                            
                             <h5 class="mt-4 mb-2">Topic Listing Center</h5>
 
                             <p>Bay St &amp;, Larkin St, San Francisco, CA 94109, United States</p>
@@ -178,9 +172,9 @@ https://templatemo.com/tm-590-topic-listing
                 <div class="row">
 
                     <div class="col-lg-3 col-12 mb-4 pb-2">
-                        <a class="navbar-brand mb-2" href="index.html">
+                        <a class="navbar-brand mb-2" href="index.php">
                             <i class="bi-back"></i>
-                            <span>Topic</span>
+                            <span><img src="logo.svg" alt=""></span>
                         </a>
                     </div>
 
@@ -193,7 +187,7 @@ https://templatemo.com/tm-590-topic-listing
                             </li>
 
                             <li class="site-footer-link-item">
-                                <a href="#" class="site-footer-link">How it works</a>
+                                <a href="#" class="site-footer-link">Books Events</a>
                             </li>
 
                             <li class="site-footer-link-item">
@@ -210,46 +204,33 @@ https://templatemo.com/tm-590-topic-listing
                         <h6 class="site-footer-title mb-3">Information</h6>
 
                         <p class="text-white d-flex mb-1">
-                            <a href="tel: 305-240-9671" class="site-footer-link">
-                                305-240-9671
+                            <a href="tel: 0451625328" class="site-footer-link">
+                                0451625328
                             </a>
                         </p>
 
                         <p class="text-white d-flex">
                             <a href="mailto:info@company.com" class="site-footer-link">
-                                info@company.com
+                                abeautifulevent@company.com
                             </a>
                         </p>
                     </div>
 
                     <div class="col-lg-3 col-md-4 col-12 mt-4 mt-lg-0 ms-auto">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            English</button>
 
-                            <ul class="dropdown-menu">
-                                <li><button class="dropdown-item" type="button">Thai</button></li>
-
-                                <li><button class="dropdown-item" type="button">Myanmar</button></li>
-
-                                <li><button class="dropdown-item" type="button">Arabic</button></li>
-                            </ul>
-                        </div>
-
-                        <p class="copyright-text mt-lg-5 mt-4">Copyright © 2048 Topic Listing Center. All rights reserved.
-                        <br><br>Design: <a rel="nofollow" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
+                        <p class="copyright-text mt-lg-5 mt-4">Copyright © 2048 A Beautiful Events. All rights reserved.
+                        <br><br>Event Management: <a rel="nofollow" href="about.php" target="_blank">Home</a></p>
                         
                     </div>
 
                 </div>
             </div>
         </footer>
-
         <!-- JAVASCRIPT FILES -->
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.bundle.min.js"></script>
         <script src="js/jquery.sticky.js"></script>
-        <script src="js/custom.js"></script>
+        <script src="js/styles.js"></script>
 
     </body>
 </html>
