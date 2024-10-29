@@ -138,7 +138,7 @@
         } ?>
 
         <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-          <a class="dropdown-item" href="profile.php">
+          <a class="dropdown-item" href="profile_admin.php">
             <i class="mdi mdi-account mr-2 text-success"></i> Profile </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="change_password.php"><i class="mdi mdi-key mr-2 text-success"></i> Change Password </a>
