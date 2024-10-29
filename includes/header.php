@@ -1,4 +1,5 @@
 <?php @include("includes/head.php");?>
+
 <body>
 
   <div class="container-scroller">
@@ -36,9 +37,6 @@
             </div>
           </li>
 
-            <li class="nav-item dropdown">
-            <a class="nav-link" href="companyprofile.php">Company</a>
-          </li>
 
           
            <?php

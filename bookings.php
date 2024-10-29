@@ -113,19 +113,19 @@ if(isset($_POST['submit']))
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="#section_2">Venues</a>
+                                <a class="nav-link click-scroll" href="homepage.php#section_2">Venues</a>
                             </li>
     
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="#section_3">Events</a>
+                                <a class="nav-link click-scroll" href="homepage.php#section_3">Events</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="#section_4">FAQs</a>
+                                <a class="nav-link click-scroll" href="homepage.php#section_4">FAQs</a>
                             </li>
     
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="#section_5">Contact</a>
+                                <a class="nav-link click-scroll" href="homepage.php#section_5">Contact</a>
                             </li>
 
                             <li class="nav-item dropdown">
