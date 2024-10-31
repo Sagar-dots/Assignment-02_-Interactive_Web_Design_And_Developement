@@ -1,27 +1,31 @@
 <?php
-// Include your database connection file
-require_once 'dbconnection.php';
+// fetch-event.php
+session_start();
+include('includes/dbconnection.php');
 
-// Query the database for approved bookings
-$sql = "SELECT 
-    Name AS 'title'
-FROM tblbooking
-WHERE Status = 'Approved'";
-
-$result = $conn->query($sql);
+$sql = "SELECT BookingID, Name, EventDate, EventStartingtime, EventEndingtime FROM tblbooking";
+$query = $dbh->prepare($sql);
+$query->execute();
+$bookings = $query->fetchAll(PDO::FETCH_ASSOC);
 
 $events = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        // Add only the event name to the events array
-        $events[] = [
-            'title' => $row['title'] // Only fetch and store the event name
-        ];
-    }
+
+foreach ($bookings as $booking) {
+    // Convert start and end times to 24-hour format
+    $startTime = date("H:i", strtotime($booking['EventStartingtime']));
+    $endTime = date("H:i", strtotime($booking['EventEndingtime']));
+
+    // Format the start and end datetime in ISO format for FullCalendar
+    $events[] = [
+        'id' => $booking['BookingID'],
+        'title' => $booking['Name'],
+        'start' => $booking['EventDate'] . 'T' . $startTime,
+        'end' => $booking['EventDate'] . 'T' . $endTime,
+        'allDay' => false,
+    ];
 }
 
-// Return events as JSON
+// Output JSON formatted events data
+header('Content-Type: application/json');
 echo json_encode($events);
-
-$conn->close();
-?>
+exit;

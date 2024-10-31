@@ -21,7 +21,6 @@ if(isset($_GET['delid']))
   <link rel="stylesheet" href="assets/vendor/mdi/css/materialdesignicons.min.css">
 </head>
 <body>
-
     <div class="container-scroller">
         
         <?php @include("includes/header.php");?>
@@ -69,6 +68,7 @@ if(isset($_GET['delid']))
                                 <th class="d-none d-sm-table-cell text-center" >Action</th>
                             </tr>
                         </thead>
+                      
 <tbody>
                             <?php
                             $companyname=$_SESSION['companyname'];
@@ -111,6 +111,7 @@ if(isset($_GET['delid']))
 </div>
 
 <?php @include("includes/foot.php");?>
+
 
 <script type="text/javascript">
     $(document).ready(function(){

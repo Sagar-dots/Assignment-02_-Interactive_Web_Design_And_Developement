@@ -37,7 +37,7 @@ if(isset($_POST['submit']))
   $LastInsertId=$dbh->lastInsertId();
   if ($LastInsertId>0) {
     echo '<script>alert("Booking Request Has Been added.")</script>';
-    echo "<script>window.location.href ='new_bookings.php'</script>";
+    echo "<script>window.location.href ='bookings.php'</script>";
   }
   else
   {
@@ -88,7 +88,7 @@ if(isset($_POST['submit']))
 
     </head>
     
-    <body class="bookings-page" id="top">
+    <body class="bookings-page" id="top" style="background-color:  #f0f8ff;">
 
         <main>
 
@@ -113,26 +113,26 @@ if(isset($_POST['submit']))
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="homepage.php#section_2">Venues</a>
+                                <a class="nav-link click-scroll" href="homepage.php">Venues</a>
                             </li>
     
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="homepage.php#section_3">Events</a>
+                                <a class="nav-link click-scroll" href="homepage.php">Events</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="homepage.php#section_4">FAQs</a>
+                                <a class="nav-link click-scroll" href="homepage.php">FAQs</a>
                             </li>
     
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="homepage.php#section_5">Contact</a>
+                                <a class="nav-link click-scroll" href="homepage.php">Contact</a>
                             </li>
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
 
                                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="./all_bookings.php">Bookings</a></li>
+                                    <li><a class="dropdown-item" href="bookings.php">Bookings</a></li>
 
                                     <li><a class="dropdown-item" href="contact.php">Contact Form</a></li>
                                 </ul>
@@ -225,35 +225,6 @@ if(isset($_POST['submit']))
                 <div class="modal-header">
                   <h5 class="modal-title" style="float: left;">Your Bookings</h5>
                 </div>
-                
-              
-              
-              <!-- Trigger Button -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editData4">
-  View Booking Details
-</button>
-
-<!-- Modal for Viewing Booking Details -->
-<div id="editData4" class="modal fade">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">View Booking Details</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" id="info_update4">
-        <?php include("view_newbookings.php"); ?>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-            
           <div class="table-responsive p-3">
             <table class="table align-items-center table-flush table-hover" id="dataTableHover">
               <thead>
@@ -265,6 +236,7 @@ if(isset($_POST['submit']))
                  <th class="d-none d-sm-table-cell">Email</th>
                  <th class="d-none d-sm-table-cell">Booking Date</th>
                  <th class="d-none d-sm-table-cell">Status</th>
+                 <th class="d-none d-sm-table-cell">Action</th>
                  
                </tr>
              </thead>
@@ -302,6 +274,38 @@ if(isset($_POST['submit']))
                         
                         <?php 
                       } ?> 
+                      <td> 
+                        <!-- Modal for Viewing Booking Details -->
+<!-- Modal for Viewing Booking Details -->
+                    <div id="editData4" class="modal fade">
+                                    <div class="modal-dialog modal-xl">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title">View Booking Details</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body" id="info_update4">
+                                          
+                                          <?php @include("view_newbookings.php");?>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="closeModal()">Close</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                        <!-- Trigger Button -->
+                          <button type="button" class="btn btn-info btn-sm view_data" data-id="<?php echo htmlentities($row->BookingID); ?>">View Details</button>
+
+                      </td>
+                      <script>
+                       
+                            function closeModal() {
+                              $('#editData4').modal('hide');
+                            }
+                      </script>
                       
                     </tr>
                     <?php
@@ -651,25 +655,79 @@ if(isset($_POST['submit']))
         <script src="js/bootstrap.bundle.min.js"></script>
         <script src="js/jquery.sticky.js"></script>
         <script src="js/script.js"></script>
-        <script>
-          $(document).ready(function() {
-  $('.view-details-btn').click(function() {
-    var bookingID = $(this).data('id'); // Get booking ID from data attribute
-
-    // AJAX request
-    $.ajax({
-      url: 'view_newbookings.php',
-      type: 'POST',
-      data: { edit_id4: bookingID },
-      success: function(response) {
-        // Load response into modal body
-        $('#info_update4').html(response);
-      }
+        <script type="text/javascript">
+  $(document).ready(function(){
+    $(document).on('click', '.view_data', function(){
+      var bookingID = $(this).data('id'); // Get Booking ID
+      $.ajax({
+        url: "view_newbookings.php",
+        type: "post",
+        data: {bookingID: bookingID},
+        success: function(data){
+          $("#info_update4").html(data); // Load content in modal
+          $("#editData4").modal('show'); // Show modal
+        }
+      });
     });
   });
-});
+</script>
+<footer class="site-footer section-padding" style="background-color: #fff;">
+            <div class="container">
+                <div class="row">
 
-        </script>
+                    <div class="col-lg-3 col-12 mb-4 pb-2">
+                        <a class="navbar-brand mb-2" href="#">
+                            <i class="bi-back"></i>
+                            <span><img src="./images/Logo.png" alt="" " style="width: 200px; height: auto;"></span>
+                        </a>
+                    </div>
 
+                    <div class="col-lg-3 col-md-4 col-6">
+                        <h6 class="site-footer-title mb-3">Resources</h6>
+
+                        <ul class="site-footer-links">
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">Home</a>
+                            </li>
+
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">Books Events</a>
+                            </li>
+
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">FAQs</a>
+                            </li>
+
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-6 mb-4 mb-lg-0">
+                        <h6 class="site-footer-title mb-3">Information</h6>
+
+                        <p class="text-white d-flex mb-1">
+                            <a href="tel: 0451625328" class="site-footer-link">
+                                0451625328
+                            </a>
+                        </p>
+
+                        <p class="text-white d-flex">
+                            <a href="mailto:info@company.com" class="site-footer-link">
+                                abeautifulevent@company.com
+                            </a>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-12 mt-4 mt-lg-0 ms-auto">
+                        <p class="copyright-text mt-lg-5 mt-4">Copyright © 2048 A Beautiful Events. All rights reserved.
+                        <br><br>Event Management: <a rel="nofollow" href="about.php" target="_blank">Home</a></p>
+                        
+                    </div>
+
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

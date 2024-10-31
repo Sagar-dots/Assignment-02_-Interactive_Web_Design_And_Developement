@@ -1,5 +1,6 @@
 <?php
 include('includes/dbconnection.php');
+
 if (isset($_GET['BookingID'])) {
     $bookingID = $_GET['BookingID'];
 
@@ -10,19 +11,23 @@ if (isset($_GET['BookingID'])) {
     $query->execute();
     $result = $query->fetch(PDO::FETCH_OBJ);
 
-    if (isset($_POST['update'])) {
-        // Update booking details
-        $name = $_POST['name'];
-        $mobileNumber = $_POST['mobileNumber'];
-        $email = $_POST['email'];
-        $status = $_POST['status'];
+    // Fetch available services for the dropdown
+    $sqlServices = "SELECT ID, ServiceName FROM tblservice";
+    $queryServices = $dbh->prepare($sqlServices);
+    $queryServices->execute();
+    $services = $queryServices->fetchAll(PDO::FETCH_OBJ);
 
-        $sql = "UPDATE tblbooking SET Name = :name, MobileNumber = :mobileNumber, Email = :email, Status = :status WHERE BookingID = :bookingID";
+    if (isset($_POST['update'])) {
+        // Update booking details with status, remarks, and service ID
+        $status = $_POST['status'];
+        $remarks = $_POST['remarks'];
+        $serviceID = $_POST['serviceID'];
+
+        $sql = "UPDATE tblbooking SET Status = :status, Remark = :remarks, ServiceID = :serviceID WHERE BookingID = :bookingID";
         $query = $dbh->prepare($sql);
-        $query->bindParam(':name', $name, PDO::PARAM_STR);
-        $query->bindParam(':mobileNumber', $mobileNumber, PDO::PARAM_STR);
-        $query->bindParam(':email', $email, PDO::PARAM_STR);
         $query->bindParam(':status', $status, PDO::PARAM_STR);
+        $query->bindParam(':remarks', $remarks, PDO::PARAM_STR);
+        $query->bindParam(':serviceID', $serviceID, PDO::PARAM_INT);
         $query->bindParam(':bookingID', $bookingID, PDO::PARAM_STR);
         
         if ($query->execute()) {
@@ -33,7 +38,7 @@ if (isset($_GET['BookingID'])) {
         }
     }
 } else {
-    echo "<script>alert('Invalid booking ID.'); window.location.href = '.php';</script>";
+    echo "<script>alert('Invalid booking ID.'); window.location.href = 'manage_bookings.php';</script>";
 }
 ?>
 
@@ -51,27 +56,30 @@ if (isset($_GET['BookingID'])) {
     <?php if ($result) { ?>
         <form method="post">
             <div class="form-group">
-                <label for="name">Customer Name</label>
-                <input type="text" name="name" class="form-control" value="<?php echo htmlentities($result->Name); ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="mobileNumber">Mobile Number</label>
-                <input type="text" name="mobileNumber" class="form-control" value="<?php echo htmlentities($result->MobileNumber); ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" name="email" class="form-control" value="<?php echo htmlentities($result->Email); ?>" required>
-            </div>
-            <div class="form-group">
                 <label for="status">Status</label>
-                <select name="status" class="form-control">
+                <select name="status" class="form-control" required>
                     <option value="Pending" <?php if ($result->Status == "Pending") echo "selected"; ?>>Pending</option>
                     <option value="Approved" <?php if ($result->Status == "Approved") echo "selected"; ?>>Approved</option>
                     <option value="Cancelled" <?php if ($result->Status == "Cancelled") echo "selected"; ?>>Cancelled</option>
                 </select>
             </div>
+            <div class="form-group">
+                <label for="remarks">Remarks</label>
+                <textarea name="remarks" class="form-control" required><?php echo htmlentities($result->Remark); ?></textarea>
+            </div>
+            <div class="form-group">
+                <label for="serviceID">Attach Service</label>
+                <select name="serviceID" class="form-control" required>
+                    <option value="">Select Service</option>
+                    <?php foreach ($services as $service) { ?>
+                        <option value="<?php echo $service->ID; ?>" <?php if ($result->ServiceID == $service->ID) echo "selected"; ?>>
+                            <?php echo htmlentities($service->ServiceName); ?>
+                        </option>
+                    <?php } ?>
+                </select>
+            </div>
             <button type="submit" name="update" class="btn btn-success">Update Booking</button>
-            <a href="all_bookings.php" class="btn btn-secondary">Cancel</a>
+            <a href="manage_bookings.php" class="btn btn-secondary">Cancel</a>
         </form>
     <?php } ?>
 </div>

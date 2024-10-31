@@ -1,24 +1,25 @@
 <?php
 include('includes/checklogin.php');
 check_login();
-if(isset($_POST['submit']))
-{
-  $adminid=$_SESSION['odmsaid'];
-  $AName=$_POST['username'];
-  $fName=$_POST['firstname'];
-  $lName=$_POST['lastname'];
-  $mobno=$_POST['mobilenumber'];
-  $email=$_POST['email'];
-  $sql="update tbladmin set UserName=:adminname,FirstName=:firstname,LastName=:lastname,MobileNumber=:mobilenumber,Email=:email where ID=:aid";
+
+if (isset($_POST['submit'])) {
+  $adminid = $_SESSION['odmsaid'];
+  $fullName = $_POST['full_name'];
+  $email = $_POST['email'];
+  $phoneNumber = $_POST['phone_number'];
+  
+  $sql = "UPDATE tbladmin SET full_name = :full_name, email_address = :email, phone_number = :phone_number WHERE id = :aid";
   $query = $dbh->prepare($sql);
-  $query->bindParam(':adminname',$AName,PDO::PARAM_STR);
-  $query->bindParam(':firstname',$fName,PDO::PARAM_STR);
-  $query->bindParam(':lastname',$lName,PDO::PARAM_STR);
-  $query->bindParam(':email',$email,PDO::PARAM_STR);
-  $query->bindParam(':mobilenumber',$mobno,PDO::PARAM_STR);
-  $query->bindParam(':aid',$adminid,PDO::PARAM_STR);
-  $query->execute();
-  echo '<script>alert("Profile has been updated")</script>';
+  $query->bindParam(':full_name', $fullName, PDO::PARAM_STR);
+  $query->bindParam(':email', $email, PDO::PARAM_STR);
+  $query->bindParam(':phone_number', $phoneNumber, PDO::PARAM_STR);
+  $query->bindParam(':aid', $adminid, PDO::PARAM_STR);
+  
+  if ($query->execute()) {
+    echo '<script>alert("Profile has been updated")</script>';
+  } else {
+    echo '<script>alert("Update failed! Try again later")</script>';
+  }
 }
 ?>
 
@@ -26,14 +27,11 @@ if(isset($_POST['submit']))
 <html lang="en">
 <?php @include("includes/head.php");?>
 <body>
-
     <div class="container-scroller">
         
         <?php @include("includes/header.php");?>
         
         <div class="container-fluid page-body-wrapper">
-            
-            
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
@@ -41,88 +39,97 @@ if(isset($_POST['submit']))
                             <div class="card">
                                 <div class="card-body">
                                     <?php
-                                    $adminid=$_SESSION['odmsaid'];
-                                    $sql="SELECT * from  tbladmin where id=:aid";
-                                    $query = $dbh -> prepare($sql);
-                                    $query->bindParam(':aid',$adminid,PDO::PARAM_STR);
+                                    $adminid = $_SESSION['odmsaid'];
+                                    $sql = "SELECT * FROM tbladmin WHERE id = :aid";
+                                    $query = $dbh->prepare($sql);
+                                    $query->bindParam(':aid', $adminid, PDO::PARAM_STR);
                                     $query->execute();
-                                    $results=$query->fetchAll(PDO::FETCH_OBJ);
-                                    $cnt=1;
-                                    if($query->rowCount() > 0)
-                                    {
-                                        foreach($results as $row)
-                                        {  
-                                            ?>
-                                            <form method="post">
-                                            <div class="form-group row">
-                                                    <label class="col-12" for="register1-email">Full Name:</label>
+                                    $results = $query->fetchAll(PDO::FETCH_OBJ);
+                                    
+                                    if ($query->rowCount() > 0) {
+                                        foreach ($results as $row) {  
+                                    ?>
+                                            <form method="post" id="profileForm">
+                                                <div class="form-group row">
+                                                    <label class="col-12" for="full_name">Full Name:</label>
                                                     <div class="col-12">
-                                                        <input type="text" class="form-control" name="username" value="<?php  echo $row->full_name;?>" readonly='true' >
+                                                        <input type="text" class="form-control" name="full_name" id="full_name" value="<?php echo htmlentities($row->full_name); ?>" readonly required>
                                                     </div>
                                                 </div>
                                                 
                                                 <div class="form-group row">
-                                                    <label class="col-12" for="register1-email">User Name:</label>
+                                                    <label class="col-12" for="username">Username:</label>
                                                     <div class="col-12">
-                                                        <input type="text" class="form-control" name="username" value="<?php  echo $row->username;?>" required='true' >
+                                                        <input type="text" class="form-control" name="username" id="username" value="<?php echo htmlentities($row->username); ?>" readonly>
                                                     </div>
                                                 </div>
                                                
-                                             
-                                           <div class="form-group row">
-                                            <label class="col-12" for="register1-password">Email:</label>
-                                            <div class="col-12">
-                                              <input type="email" class="form-control" name="email" value="<?php  echo $row->email_address;?>" required='true'>
-                                          </div>
-                                      </div>
-                                      <div class="form-group row">
-                                        <label class="col-12" for="register1-password">Contact Number:</label>
-                                        <div class="col-12">
-                                         <input type="text" class="form-control" name="phone_number" value="<?php  echo $row->phone_number;?>" required='true' maxlength='10'>
-                                     </div>
-                                 </div>
-                                 <div class="form-group row">
-                                  <label class="col-12" for="register1-password">Registration Date:</label>
-                                  <div class="col-12">
-                                   <input type="text" class="form-control" id="email2" name="" value="<?php  echo $row->admin_regdate;?>" readonly="true">
-                               </div>
-                           </div>
-                           <div class="control-group">
-                            <label class="control-label" for="basicinput">Profile Image</label>
-                            <div class="controls">
-                              <?php if($row->Photo=="avatar15.jpg"){ ?>
-                               <img class="" src="assets/img/avatars/avatar15.jpg" alt="" width="100" height="100">
-                               <?php 
-                           } else { ?>
-                              <img src="assets/img/profileimages/<?php  echo $row->Photo;?>" width="150" height="150">
-                              <?php 
-                          } ?>  
-                          <a href="update_image.php?id=<?php echo $adminid;?>">Change Image</a>
-                      </div>
-                  </div>       
-                  <?php 
-              }
-          } ?>
-          <br>
-          <button type="submit" name="submit" class="btn btn-primary btn-fw mr-2" style="float: left;">update</button>
-      </form>
-  </div>
-</div>
-</div>
-</div>
-</div>
+                                                <div class="form-group row">
+                                                    <label class="col-12" for="email">Email:</label>
+                                                    <div class="col-12">
+                                                        <input type="email" class="form-control" name="email" id="email" value="<?php echo htmlentities($row->email_address); ?>" readonly required>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-group row">
+                                                    <label class="col-12" for="phone_number">Contact Number:</label>
+                                                    <div class="col-12">
+                                                        <input type="text" class="form-control" name="phone_number" id="phone_number" value="<?php echo htmlentities($row->phone_number); ?>" readonly required maxlength="10">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-group row">
+                                                    <label class="col-12" for="admin_regdate">Registration Date:</label>
+                                                    <div class="col-12">
+                                                        <input type="text" class="form-control" id="admin_regdate" name="admin_regdate" value="<?php echo htmlentities($row->admin_regdate); ?>" readonly>
+                                                    </div>
+                                                </div>
 
+                                                <!-- Buttons -->
+                                                <button type="button" id="editButton" class="btn btn-secondary btn-sm" onclick="enableEditing()">Edit</button>
+                                                <button type="submit" name="submit" id="updateButton" class="btn btn-primary btn-sm mr-2" style="display: none;">Update</button>
+                                                <button type="button" id="cancelButton" class="btn btn-secondary btn-sm" style="display: none;" onclick="disableEditing()">Cancel</button>
+                                            </form>
+                                    <?php 
+                                        }
+                                    } 
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-<?php @include("includes/footer.php");?>
+                <?php @include("includes/footer.php");?>
 
-</div>
+            </div>
+        </div>
+    </div>
 
-</div>
+    <script>
+        // Function to enable editing
+        function enableEditing() {
+            document.getElementById("full_name").readOnly = false;
+            document.getElementById("email").readOnly = false;
+            document.getElementById("phone_number").readOnly = false;
 
-</div>
+            // Show Update and Cancel buttons, hide Edit button
+            document.getElementById("editButton").style.display = "none";
+            document.getElementById("updateButton").style.display = "inline-block";
+            document.getElementById("cancelButton").style.display = "inline-block";
+        }
 
-<?php @include("includes/foot.php");?>
+        // Function to disable editing
+        function disableEditing() {
+            document.getElementById("full_name").readOnly = true;
+            document.getElementById("email").readOnly = true;
+            document.getElementById("phone_number").readOnly = true;
 
+            // Hide Update and Cancel buttons, show Edit button
+            document.getElementById("editButton").style.display = "inline-block";
+            document.getElementById("updateButton").style.display = "none";
+            document.getElementById("cancelButton").style.display = "none";
+        }
+    </script>
 </body>
-
 </html>

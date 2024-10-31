@@ -21,27 +21,25 @@ check_login();
                 </div>
               
               
-              <div id="editData4" class="modal fade">
+                <div id="editData4" class="modal fade">
                 <div class="modal-dialog modal-xl">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">View Booking details</h5>
+                      <h5 class="modal-title">View Booking Details</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body" id="info_update4">
-                     <?php @include("view_newbookings.php");?>
-                   </div>
-                   <div class="modal-footer ">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      <!-- The booking details will be loaded here from view_newbookings.php -->
+                      <?php @include("view_newbookings.php");?>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
                   </div>
-                  
                 </div>
-                
               </div>
-              
-            </div>
             
           <div class="table-responsive p-3">
             <table class="table align-items-center table-flush table-hover" id="dataTableHover">
@@ -114,8 +112,6 @@ check_login();
 </div>
 
 </div>
-
-<?php @include("includes/foot.php");?>
 
 
 <script type="text/javascript">

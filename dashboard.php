@@ -94,7 +94,7 @@
                      <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="modal-header">
-                  <h5 class="modal-title" style="float: left;">All Bookings</h5>
+                  <h5 class="modal-title" style="float: left;">Approved Bookings</h5>
                 </div>
 
                 

@@ -28,13 +28,13 @@
 
         <main>
 
-            <nav class="navbar navbar-expand-lg">
+          
+        <nav class="navbar navbar-expand-lg">
                 <div class="container">
-                    <a class="navbar-brand" href="index.php">
+                    <a class="navbar-brand" href="homepage.php">
                         <i class="bi-back"></i>
-                        <span><img src="logo.svg" alt=""></span>
+                        <span>A Beautiful Event</span>
                     </a>
-
                     <div class="d-lg-none ms-auto me-4">
                         <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
                     </div>
@@ -46,44 +46,86 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-lg-5 me-lg-auto">
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="index.php#section_1">Home</a>
+                                <a class="nav-link click-scroll" href="homepage.php">Home</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="index.php#section_2">Venues</a>
+                                <a class="nav-link click-scroll" href="homepage.php">Venues</a>
                             </li>
     
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="index.php#section_3">Events</a>
+                                <a class="nav-link click-scroll" href="homepage.php">Events</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="index.php#section_4">FAQs</a>
+                                <a class="nav-link click-scroll" href="homepage.php">FAQs</a>
                             </li>
     
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="index.php#section_5">Contact</a>
+                                <a class="nav-link click-scroll" href="homepage.php">Contact</a>
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#section_5" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
 
                                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                                     <li><a class="dropdown-item" href="bookings.php">Bookings</a></li>
 
-                                    <li><a class="dropdown-item active" href="contact.php">Contact Form</a></li>
+                                    <li><a class="dropdown-item" href="contact.php">Contact Form</a></li>
                                 </ul>
                             </li>
                         </ul>
+                        
 
                         <div class="d-none d-lg-block">
-                            <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+  <div class="col-md-12 d-flex justify-content-between align-items-center ">
+    <div class="nav-item nav-profile me-3">
+      <?php
+      session_start();
+      error_reporting(0);
+      include('includes/dbconnection.php');
+      $aid = $_SESSION['odmsaid'];
+      $sql = "SELECT * from tbladmin where id=:aid";
+      $query = $dbh->prepare($sql);
+      $query->bindParam(':aid', $aid, PDO::PARAM_STR);
+      $query->execute();
+      $results = $query->fetchAll(PDO::FETCH_OBJ);
+      if ($query->rowCount() > 0) {
+        foreach ($results as $row) {
+          ?>
+          <div class="nav-profile-text">
+            <p class="mb-1 text-white fs-1.5" ><?php echo htmlspecialchars($row->full_name); ?></p>
+          </div>
+          <?php
+        }
+      }
+      ?>
+    </div>
+    <div class="dropdown">
+  <!-- Button triggering the dropdown -->
+  <a href="#" class="navbar-icon bi-person smoothscroll" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 1.5em; color: #000;">
+  </a>
 
+  <!-- Dropdown menu -->
+  <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+    <a class="dropdown-item" href="profile.php">
+      <i class="mdi mdi-account mr-2 text-success"></i> Profile 
+    </a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="change_password.php">
+      <i class="mdi mdi-key mr-2 text-success"></i> Change Password 
+    </a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="index.php">
+      <i class="mdi mdi-logout mr-2 text-danger"></i> Signout 
+    </a>
+  </div>
+</div>
 
+   
+  </div>
+</div>     
+    </nav>
             <header class="site-header d-flex flex-column justify-content-center align-items-center">
                 <div class="container">
                     <div class="row align-items-center">
@@ -91,7 +133,7 @@
                         <div class="col-lg-5 col-12">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.php">Homepage</a></li>
+                                    <li class="breadcrumb-item"><a href="homepage.php">Homepage</a></li>
 
                                     <li class="breadcrumb-item active" aria-current="page">Contact Form</li>
                                 </ol>
@@ -174,7 +216,7 @@
                     <div class="col-lg-3 col-12 mb-4 pb-2">
                         <a class="navbar-brand mb-2" href="index.php">
                             <i class="bi-back"></i>
-                            <span><img src="logo.svg" alt=""></span>
+                            <span><img src="./images/Logo.png" alt="" " style="width: 200px; height: auto;"></span>
                         </a>
                     </div>
 

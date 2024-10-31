@@ -3,10 +3,18 @@ session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
 
-$eid = $_POST['edit_id4'];
-$sql = "SELECT tblbooking.BookingID, tblbooking.Name, tblbooking.MobileNumber, tblbooking.Email, tblbooking.EventDate, tblbooking.EventStartingtime, tblbooking.EventEndingtime, tblbooking.VenueAddress, tblbooking.EventType, tblbooking.AdditionalInformation, tblbooking.BookingDate, tblbooking.Remark, tblbooking.Status, tblbooking.UpdationDate, tblservice.ServiceName, tblservice.SerDes, tblservice.ServicePrice FROM tblbooking JOIN tblservice ON tblbooking.ServiceID = tblservice.ID WHERE tblbooking.ID = :eid";
+// Use bookingID as the parameter based on the earlier setup
+$bookingID = $_POST['bookingID'];
+$sql = "SELECT tblbooking.BookingID, tblbooking.Name, tblbooking.MobileNumber, tblbooking.Email, tblbooking.EventDate, 
+        tblbooking.EventStartingtime, tblbooking.EventEndingtime, tblbooking.VenueAddress, tblbooking.EventType, 
+        tblbooking.AdditionalInformation, tblbooking.BookingDate, tblbooking.Remark, tblbooking.Status, 
+        tblbooking.UpdationDate, tblservice.ServiceName, tblservice.SerDes, tblservice.ServicePrice 
+        FROM tblbooking 
+        LEFT JOIN tblservice ON tblbooking.ServiceID = tblservice.ID 
+        WHERE tblbooking.BookingID = :bookingID";
+
 $query = $dbh->prepare($sql);
-$query->bindParam(':eid', $eid, PDO::PARAM_STR);
+$query->bindParam(':bookingID', $bookingID, PDO::PARAM_STR);
 $query->execute();
 $results = $query->fetchAll(PDO::FETCH_OBJ);
 
@@ -46,14 +54,14 @@ if ($query->rowCount() > 0) {
       </tr>
       <tr>
         <th>Service Name</th>
-        <td><?php echo htmlentities($row->ServiceName); ?></td>
+        <td><?php echo htmlentities($row->ServiceName ?? "Not Added Yet"); ?></td>
         <th>Service Description</th>
-        <td><?php echo htmlentities($row->SerDes); ?></td>
+        <td><?php echo htmlentities($row->SerDes ?? "Not Added Yet"); ?></td>
       </tr>
       <tr>
         <th>Service Price</th>
-        <td>$<?php echo htmlentities($row->ServicePrice); ?></td>
-        <th>Apply Date</th>
+        <td>$<?php echo htmlentities($row->ServicePrice ?? "Not Added Yet"); ?></td>
+        <th>Booking Date</th>
         <td><?php echo htmlentities($row->BookingDate); ?></td>
       </tr>
       <tr>
@@ -72,8 +80,14 @@ if ($query->rowCount() > 0) {
         <th>Admin Remark</th>
         <td><?php echo htmlentities($row->Remark ?? "Not Updated Yet"); ?></td>
       </tr>
+      <tr>
+        <th>Last Updated</th>
+        <td colspan="3"><?php echo htmlentities($row->UpdationDate ?? "Not Updated Yet"); ?></td>
+      </tr>
     </table>
     <?php
   }
+} else {
+  echo "<p>No booking details found.</p>";
 }
 ?>
